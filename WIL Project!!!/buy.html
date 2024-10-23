@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Page</title>
+    <style>
+        header {
+            background-color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1eb7f3;
+            font-family: "my-font", serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            margin-right: 15px;
+            width: 240px;
+            height: auto;
+        }
+
+        .WP {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: black;
+            font-size: 21px;
+            padding: 10px 15px;
+        }
+
+        ul li:hover a {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            color: rgb(0, 114, 114);
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            max-width: 1200px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .filter {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter label {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+        .house-listings {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .house-card {
+            display: flex;
+            width: 90%;
+            height: 200px; /* Decreased height by 40% */
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            background-color: #fff;
+        }
+
+        .house-card img {
+            width: 40%;
+            height: auto;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .house-card .details {
+            flex: 1;
+        }
+
+        .house-card .price {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .house-card .description {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .hidden-info {
+            display: none; /* Hide iframe and additional text by default */
+        }
+
+        .read-more {
+            color: #0072ee;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            margin-top: 20px;
+        }
+        
+        .social_icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        
+        .social_icons li {
+            list-style: none;
+            margin: 0 10px;
+        }
+        
+        .social_icons li a img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .info p {
+            color: white;
+            margin: 5px 0;
+            font-size: 17.6px;
+        }
+        
+        .symbols {
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo-container">
+            <img src="logo.png" alt="logo">
+            <div class="WP">Real Homes</div> 
+        </div>
+        <div class="navigator">
+            <ul>
+                <li><a href="HomePage.html">HOME</a></li>
+                <li><a href="RentPage.html">RENT</a></li>
+                <li><a href="sell.html">SELL</a></li>          
+                <li><a href="calculator.html">Calculate</a></li>
+                <li><a href="./agent.html">Agent Portal</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="filter">
+        <label for="priceRange">Filter by price range:</label>
+        <select id="priceRange" onchange="filterHouses()">
+            <option value="all">All</option>
+            <option value="low">Below R500,000</option>
+            <option value="mid">Between R500,000 and R2,000,000</option>
+            <option value="high">Above R2,000,000</option>
+        </select>
+
+        <label for="location">Filter by location:</label>
+        <select id="location" onchange="filterHouses()">
+            <option value="all">All</option>
+            <option value="suburbs">Suburbs</option>
+            <option value="city">City</option>
+            <option value="rural">Rural</option>
+        </select>
+    </div>
+
+    <div class="house-listings" id="houseListings"></div>
+</div>
+
+<footer>
+    <ul class="social_icons">
+        <li><a href="https://instagram.com"><img src="instagram.png" width="30px" height="30px"></a></li>
+        <li><a href="https://facebook.com"><img src="facebook.png" width="30px" height="30px"></a></li>
+        <li><a href="https://youtube.com"><img src="Youtube.png" width="30px" height="30px"></a></li>
+        <li><a href="https://twitter.com"><img src="x.png" width="30px" height="30px"></a></li>
+    </ul>
+    <div class="info">
+        <p>Contact Us:</p>
+        <p>Email: info@RealHomesproperties.com</p>
+        <p>Phone: (123) 456-7890</p>
+        <p>Address: 123 Property Lane, Johannesburg, SA</p>
+    </div>
+    <div class="symbols">&#169; 2024 Real Home Properties</div>
+</footer>
+
+<script>
+    const houses = [
+        { 
+            id: 1, 
+            price: 450000, 
+            description: "Cozy 2-bedroom in a peaceful rural area with a beautiful garden.", 
+            location: "rural", 
+            iframeSrc: "iframe5.html", 
+            additionalText: "A great escape from the busy city life.", // Additional text
+            image: "house4.jpeg" 
+        },
+        { 
+            id: 2, 
+            price: 950000, 
+            description: "Spacious 3-bedroom house close to the city.", 
+            location: "suburbs", 
+            iframeSrc: "iframe4.html", 
+            additionalText: "Perfect for professionals working in the city.", // Additional text
+            image: "house5.jpeg" 
+        },
+        { 
+            id: 3, 
+            price: 1800000, 
+            description: "Beautiful 3-bedroom house with a large backyard.", 
+            location: "suburbs", 
+            iframeSrc: "iframe1.html", 
+            additionalText: "This house is located in a quiet neighborhood, perfect for families.", // Additional text
+            image: "house2.jpeg" 
+        },
+        { 
+            id: 4, 
+            price: 2000000, 
+            description: "Modern 4-bedroom home in a quiet neighborhood.", 
+            location: "city", 
+            iframeSrc: "iframe2.html", 
+            additionalText: "Close to schools, shops, and public transport.", // Additional text
+            image: "house1.jpeg" 
+        },
+        { 
+            id: 5, 
+            price: 2375000, 
+            description: "Luxurious 5-bedroom estate with a private pool.", 
+            location: "city", 
+            iframeSrc: "iframe3.html", 
+            additionalText: "Ideal for those who love entertainment and luxury.", // Additional text
+            image: "house3.jpeg" 
+        },
+
+       
+    ];
+
+    // Function to display the houses
+    function displayHouses(housesToDisplay) {
+        const listingsContainer = document.getElementById('houseListings');
+        listingsContainer.innerHTML = '';
+
+        housesToDisplay.forEach(house => {
+            const houseCard = document.createElement('div');
+            houseCard.classList.add('house-card');
+
+            houseCard.innerHTML = `
+                <img src="${house.image}" alt="House image">
+                <div class="details">
+                    <div class="price">R${house.price.toLocaleString()}</div>
+                    <div class="description">${house.description}</div>
+                    <div class="hidden-info">
+                        <iframe src="${house.iframeSrc}" width="80%" height="100" frameborder="0"></iframe>
+                        <div class="additional-text">${house.additionalText}</div>
+                    </div>
+                    <div class="read-more" onclick="toggleDescription(${house.id})">Read more</div>
+                </div>
+            `;
+
+            listingsContainer.appendChild(houseCard);
+        });
+    }
+
+    // Function to toggle the visibility of hidden information
+    function toggleDescription(houseId) {
+        const houseCard = document.querySelector(`.house-card:nth-child(${houseId}) .hidden-info`);
+        if (houseCard.style.display === "none" || houseCard.style.display === "") {
+            houseCard.style.display = "block";
+        } else {
+            houseCard.style.display = "none";
+        }
+    }
+
+    // Function to filter houses by price range and location
+    function filterHouses() {
+        const priceRange = document.getElementById('priceRange').value;
+        const location = document.getElementById('location').value;
+        let filteredHouses = houses;
+
+        if (priceRange === 'low') {
+            filteredHouses = filteredHouses.filter(house => house.price < 500000);
+        } else if (priceRange === 'mid') {
+            filteredHouses = filteredHouses.filter(house => house.price >= 500000 && house.price <= 2000000);
+        } else if (priceRange === 'high') {
+            filteredHouses = filteredHouses.filter(house => house.price > 2000000);
+        }
+
+        if (location !== 'all') {
+            filteredHouses = filteredHouses.filter(house => house.location === location);
+        }
+
+        displayHouses(filteredHouses);
+    }
+
+    // Initial display of all houses
+    displayHouses(houses);
+
+        fetch('buy.php')
+            .then(response => response.json())
+            .then(data => {
+                const houseListings = document.getElementById('houseListings');
+                houseListings.innerHTML = '';
+    
+                data.forEach(property => {
+                    const houseCard = document.createElement('div');
+                    houseCard.classList.add('house-card');
+    
+                    houseCard.innerHTML = `
+                        <img src="uploads/${property.image}" alt="House Image">
+                        <div class="details">
+                            <div class="price">R${property.price.toLocaleString()}</div>
+                            <div class="description">${property.description}</div>
+                        </div>
+                    `;
+    
+                    houseListings.appendChild(houseCard);
+                });
+            });
+    
+</script>
+</body>
+</html>

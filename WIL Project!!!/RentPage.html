@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Homes Rent Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1eb7f3;
+            font-family: "my-font", serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: white;
+            padding: 10px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            margin-right: 15px;
+            width: 240px;
+            height: auto;
+        }
+
+        .WP {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: black;
+            font-size: 21px;
+            padding: 10px 15px;
+        }
+
+        ul li:hover a {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            color: rgb(0, 114, 114);
+        }
+        .signlogin {
+            display: flex;
+            gap: 50px;
+            text-decoration: none;
+        }
+         a {
+            text-decoration: none;
+            color: black;
+            font-size: 21px;
+            padding: 10px 15px;
+        }
+
+        .sign, .login {
+            background-color: aqua;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .sign:hover {
+            background-color: rgb(0, 114, 114);
+            color: white;
+        }
+        .container {
+            align-self: center;
+            width: 90%;
+            margin: 20px;
+            max-width: 1200px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .filter {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter label {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+        .rental-listings {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-around;
+        }
+
+        .rental-card {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            background-color: #fff;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+        }
+
+        .slideshow-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slideshow-container button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .slideshow-container button:first-of-type {
+            left: 0;
+        }
+
+        .slideshow-container button:last-of-type {
+            right: 0;
+        }
+
+        .slideshow-container button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .rental-card .details {
+            padding: 15px;
+        }
+
+        .rental-card .rent {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .rental-card .description {
+            color: #666;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            width: 100%;
+        }
+
+        .social_icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        footer p {
+            color: white;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 17.6px;
+        }
+
+        .sell-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            position: fixed;
+            bottom: 20px; /* Keeps the form 20px above the footer */
+            right: 20px; /* Keeps the form 20px from the right edge */
+            background-color: white; /* Optional: to make it stand out */
+            padding: 15px; /* Optional: padding for better look */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Optional: add shadow for better visibility */
+        }
+
+        .sell-form input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        .sell-form input[type="text"] {
+            margin-bottom: 10px;
+            padding: 8px;
+            font-size: 1em;
+        }
+
+        .sell-form button {
+            padding: 10px;
+            background-color: #1eb7f3;
+            border: none;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.png" alt="logo">
+                <div class="WP">Real Homes</div> 
+            </div>
+            <div class="navigator">
+                <ul>
+                    <li><a href="HomePage.html">HOME</a></li>
+                    <li><a href="BuyPage.html">BUY</a></li>
+                    <li><a href="./agent.html">Agents Portal</a></li>        
+                    <li><a href="./calculator.html">Calculate</a></li>
+                </ul>
+            </div>
+            <div class="signlogin">
+                <div class="sign"><a href="./contactUs.html">ContactUs</a></div> 
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Rental Listings</h1>
+
+        <!-- Filter by rent range -->
+        <div class="filter">
+            <label for="rentRange">Filter by monthly rent:</label>
+            <select id="rentRange" onchange="filterRentals()">
+                <option value="all">All</option>
+                <option value="low">Below R2,000</option>
+                <option value="mid">Between R2,000 and R4,000</option>
+                <option value="high">Above R5,500</option>
+            </select>
+        </div>
+
+        <!-- Rental Listings -->
+        <div class="rental-listings" id="rentalListings">
+            <!-- Rentals will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <footer>
+        <ul class="social_icons">
+            <li><a href="https://instagram.com"><img src="instagram.png" width="30px" height="30px"></a></li>
+            <li><a href="https://facebook.com"><img src="facebook.png" width="30px" height="30px"></a></li>
+            <li><a href="https://youtube.com"><img src="Youtube.png" width="30px" height="30px"></a></li>
+            <li><a href="https://twitter.com"><img src="x.png" width="30px" height="30px"></a></li>
+        </ul>
+        <div class="info">
+            <p>Contact Us:</p>
+            <p>Email: info@RealHomesproperties.com</p>
+            <p>Phone: (123) 456-7890</p>
+            <p>Address: 123 Property Lane, Johannesburg, SA</p>            
+        </div>
+        <div class="symbols">&#169;</div>
+    </footer>
+
+    <!-- Form to add new rental property -->
+    <div class="sell-form">
+        <input type="text" id="propertyDescription" placeholder="Enter property description" required>
+        <input type="file" id="propertyImages" multiple accept="image/*" required>
+        <button onclick="addNewRental()">Add Property</button>
+    </div>
+
+    <script>
+        const rentals = [
+            {
+                id: 1,
+                rent: 2000,
+                description: "Charming 1-bedroom apartment in the city center.",
+                images: ["apartment1_1.jpeg", "apartment1_2.jpeg", "apartment1_3.jpeg"],
+                currentImageIndex: 0
+            },
+            {
+                id: 2,
+                rent: 3500,
+                description: "Spacious 2-bedroom house with a garden.",
+                images: ["house1_1.jpg", "house1_2.jpg", "house1_3.jpg"],
+                currentImageIndex: 0
+            },
+            {
+                id: 3,
+                rent: 4200,
+                description: "Modern studio apartment with great views.",
+                images: ["studio1_1.jpeg", "studio1_2.jpeg", "studio1_3.jpeg"],
+                currentImageIndex: 0
+            },
+            {
+                id: 4,
+                rent: 4500,
+                description: "Cozy 3-bedroom townhouse in a quiet neighborhood.",
+                images: ["townhome1_1.jpg","townhome1_2.jpg"],
+                currentImageIndex: 0
+            },
+            {
+                id: 5,
+                rent: 6000,
+                description: "Elegant 4-bedroom villa in a gated community.",
+                images: ["studio2_2.png","studio3_1.jpeg"],
+                currentImageIndex: 0
+            }
+        ];
+
+        function displayRentals(rentalsToDisplay) {
+            const listingsContainer = document.getElementById('rentalListings');
+            listingsContainer.innerHTML = '';
+
+            rentalsToDisplay.forEach(rental => {
+                const rentalCard = document.createElement('div');
+                rentalCard.classList.add('rental-card');
+                rentalCard.innerHTML = `
+                    <div class="slideshow-container">
+                        <button onclick="prevImage(${rental.id})">❮</button>
+                        <img id="rental-image-${rental.id}" src="${rental.images[rental.currentImageIndex]}" alt="Rental Image">
+                        <button onclick="nextImage(${rental.id})">❯</button>
+                    </div>
+                    <div class="details">
+                        <div class="rent">R${rental.rent}</div>
+                        <div class="description">${rental.description}</div>
+                    </div>
+                `;
+
+                listingsContainer.appendChild(rentalCard);
+            });
+        }
+
+        function addNewRental() {
+            const description = document.getElementById('propertyDescription').value;
+            const imageFiles = document.getElementById('propertyImages').files;
+
+            if (imageFiles.length < 3) {
+                alert('Please upload at least three images.');
+                return;
+            }
+
+            const newRental = {
+                id: rentals.length + 1,
+                rent: Math.floor(Math.random() * 5000) + 1500, // Random rent between 1500 and 6500
+                description,
+                images: Array.from(imageFiles).map(file => URL.createObjectURL(file)),
+                currentImageIndex: 0
+            };
+
+            rentals.push(newRental);
+            displayRentals(rentals);
+        }
+
+        function nextImage(rentalId) {
+            const rental = rentals.find(r => r.id === rentalId);
+            rental.currentImageIndex = (rental.currentImageIndex + 1) % rental.images.length;
+            document.getElementById(`rental-image-${rentalId}`).src = rental.images[rental.currentImageIndex];
+        }
+
+        function prevImage(rentalId) {
+            const rental = rentals.find(r => r.id === rentalId);
+            rental.currentImageIndex = (rental.currentImageIndex - 1 + rental.images.length) % rental.images.length;
+            document.getElementById(`rental-image-${rentalId}`).src = rental.images[rental.currentImageIndex];
+        }
+
+        function filterRentals() {
+            const rentRange = document.getElementById('rentRange').value;
+            let filteredRentals = rentals;
+
+            if (rentRange === 'low') {
+                filteredRentals = rentals.filter(r => r.rent < 2000);
+            } else if (rentRange === 'mid') {
+                filteredRentals = rentals.filter(r => r.rent >= 2000 && r.rent <= 4000);
+            } else if (rentRange === 'high') {
+                filteredRentals = rentals.filter(r => r.rent > 5500);
+            }
+
+            displayRentals(filteredRentals);
+        }
+
+        // Initial display of rentals
+        displayRentals(rentals);
+    </script>
+</body>
+</html>
